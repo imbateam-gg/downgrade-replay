@@ -1,0 +1,88 @@
+{
+  "_from": "node-pkware",
+  "_id": "node-pkware@0.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-KfV8iS7B7dH9wX0FQ98FUYgWYYbmEUYNHPhaXMvb1qtdjjB4SYhSr1RC60uWdKFZ+0WHjmqd/arg6GOm8rP/2w==",
+  "_location": "/node-pkware",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "node-pkware",
+    "name": "node-pkware",
+    "escapedName": "node-pkware",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-pkware/-/node-pkware-0.0.4.tgz",
+  "_shasum": "ef8e0468d7b6c186ea0641cb88f15d900d98734a",
+  "_spec": "node-pkware",
+  "_where": "C:\\Users\\alexp\\Documents\\dev\\downgrade-replay",
+  "author": {
+    "name": "Lajos Meszaros",
+    "email": "m_lajos@hotmail.com"
+  },
+  "bin": {
+    "implode": "bin/implode.mjs",
+    "explode": "bin/explode.mjs"
+  },
+  "bugs": {
+    "url": "https://github.com/meszaros-lajos-gyorgy/node-pkware/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "ramda": "^0.27.1"
+  },
+  "deprecated": false,
+  "description": "The nodejs implementation of StormLib's pkware compressor/de-compressor",
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier-standard": "^3.0.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-ramda": "^2.5.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "lint-staged": "^10.2.11",
+    "mocha": "^8.1.1",
+    "nodemon": "^2.0.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.0.5",
+    "prettier-config-standard": "^1.0.1"
+  },
+  "homepage": "https://github.com/meszaros-lajos-gyorgy/node-pkware#readme",
+  "license": "GPL-3.0-or-later",
+  "lint-staged": {
+    "*.{js,mjs}": "eslint --fix"
+  },
+  "main": "src/index.mjs",
+  "name": "node-pkware",
+  "pre-commit": [
+    "lint:staged",
+    "unit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meszaros-lajos-gyorgy/node-pkware.git"
+  },
+  "scripts": {
+    "lint": "eslint \"src/**/*.+(js|mjs)\"",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:staged": "lint-staged",
+    "test": "node --experimental-modules --no-warnings test/index.mjs",
+    "test:watch": "nodemon --experimental-modules --no-warnings test/index.mjs --ext .mjs",
+    "unit": "mocha --experimental-modules --no-warnings test/**/*.spec.mjs --timeout 5000",
+    "unit:watch": "nodemon --exec \"npm run unit\" --watch test --watch src"
+  },
+  "version": "0.0.4"
+}

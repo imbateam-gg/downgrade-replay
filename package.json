@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "jssuh": "^1.4.0",
-    "node-pkware": "0.0.4"
+    "node-pkware": "0.0.4",
+    "ramda": "^0.27.1"
   }
 }
