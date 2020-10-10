@@ -1,6 +1,6 @@
 # downgrade-replay
 
-Downgrade Starcraft Remastered replays to 1.116
+Downgrade Starcraft Remastered replays to 1.16
 
 TBD: Output compression and final output structure
 
