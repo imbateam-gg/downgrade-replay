@@ -135,12 +135,6 @@ const processChunkData = (state) => {
         // need to wrap up writing bytes, just add final literal
       }
 
-      console.log(
-        `reading ${toHex(state.inputBuffer.length)} bytes${
-          state.streamEnded ? " and the stream have ended" : ""
-        }`
-      );
-
       // to prevent infinite loops:
       // depending on the length of chunks we get the inputBuffer can be over 0x1000 multiple times
       // we will try reading the input buffer in 0x1000 chunks, but bail out after 1000 cycles
@@ -197,9 +191,7 @@ const implode = (compressionType, dictionarySize) => {
       state.streamEnded = true;
       processChunkData(state)
         .then(() => {
-          console.log(
-            `writing remaining ${toHex(state.outputBuffer.length)} bytes`
-          );
+          console.log(`writing remaining ${state.outputBuffer.length} bytes`);
           callback(null, state.outputBuffer);
         })
         .catch((e) => {
