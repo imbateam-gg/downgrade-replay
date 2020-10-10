@@ -113,21 +113,6 @@ const parseFirstChunk = (chunk) => {
       state = mergeRight(state, generateAsciiTables());
     }
 
-    console.log(
-      `compression type: ${
-        state.compressionType === BINARY_COMPRESSION ? "binary" : "ascii"
-      }`
-    );
-    console.log(
-      `compression level: ${
-        state.dictionarySizeBits === 4
-          ? 1
-          : state.dictionarySizeBits === 5
-          ? 2
-          : 3
-      }`
-    );
-
     state.inputBuffer = chunk.slice(3);
 
     resolve(state);
@@ -347,8 +332,6 @@ const explode = () => {
       state.inputBuffer = Buffer.concat([state.inputBuffer, chunk]);
       work = Promise.resolve(state);
     }
-
-    console.log(`reading ${toHex(chunk.length)} bytes`);
 
     work
       .then(processChunkData)

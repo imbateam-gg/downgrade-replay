@@ -9,8 +9,6 @@ const flushBuffer = (chunkSize, state) => {
     const output = state.outputBuffer.slice(0, outputSize);
     state.outputBuffer = state.outputBuffer.slice(outputSize);
 
-    console.log(`writing ${toHex(output.length)} bytes`);
-
     return output;
   } else {
     return Buffer.from([]);
