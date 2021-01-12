@@ -10,4 +10,6 @@ Downgrade Starcraft Remastered replays to 1.16
 - Parse header & player information, command information, as well as chk Buffer for use in a library like `shieldbattery/bw-chk`
 
 ### Not working
-- Possibly need to add vx4ex support to openbw, commands not executing correctly
+- Not quite working yet :(
+- Crashes in 1.16, opens in openbw but the commands aren't executing correctly (although they are being calculated in apm :S)
+- SCR map like Eclipse is missing tiles, does this mean we need to add vx4ex support to openbw?
