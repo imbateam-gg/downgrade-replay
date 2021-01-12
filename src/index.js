@@ -1,9 +1,8 @@
 // based HEAVILY on jssuh, screp & openbw <3
-// uses a local copy of https://github.com/meszaros-lajos-gyorgy/node-pkware
 const { BufferList } = require("bl");
 const iconv = require("iconv-lite");
 const zlib = require("zlib");
-const { Writable, Readable, Transform } = require("stream");
+const { Writable, Readable } = require("stream");
 const pkware = require("../libs/pkware-wasm/pkware");
 const crc32 = require("../libs/crc32");
 const downgradeChk = require("../libs/chk-downgrader/chk-downgrader.js");
@@ -163,27 +162,6 @@ const deflate = async (buf) => {
   return pkware.implode(buf, pkware.ImplodeDictSize1);
 };
 
-// const t = new Transform({
-//   transform: implode(BINARY_COMPRESSION, DICTIONARY_SIZE3),
-// });
-
-// new Readable({
-//   read: function () {
-//     this.push(buf);
-//     this.push(null);
-//   },
-// })
-//   .pipe(t)
-//   .pipe(
-//     new Writable({
-//       write(def, enc, done) {
-//         res(def);
-//         done();
-//       },
-//     })
-//   );
-// });
-
 const block = async (buf, blockSize) => {
   if (blockSize === 0) {
     console.warn("block size 0");
@@ -229,11 +207,8 @@ const block = async (buf, blockSize) => {
     throw new Error(`read bytes, expected:${blockSize} got:${result.length}`);
 
   const calcChecksum = crc32(result.slice(0));
-  console.log("crc", calcChecksum, checksum);
-  console.log("cchunk", chunkCount, actualBlockSize);
   if (calcChecksum !== checksum) {
-    // debugger;
-    // throw new Error(`crc32 mismatch expected:${checksum} got:${calcChecksum}`);
+    throw new Error(`crc32 mismatch expected:${checksum} got:${calcChecksum}`);
   }
 
   return result;
@@ -244,7 +219,7 @@ const Version = {
   remastered: 1,
 };
 
-const parseReplay = async (buf, commandsAsStream = false) => {
+const parseReplay = async (buf) => {
   const bl = new BufferList();
   bl.append(buf);
 
@@ -259,16 +234,13 @@ const parseReplay = async (buf, commandsAsStream = false) => {
     throw new Error("not a replay");
   }
   if (version === Version.remastered) {
-    // there are juicy scr data blocks at this offset but we'll skip it for our use case
+    // ignore scr sections
     bl.consume(4);
   }
 
-  console.log("header");
   const rawHeader = await block(bl, 0x279);
   const header = parseHeader(rawHeader);
-  console.log("header", header);
 
-  console.log("commands");
   const cmdsSize = (await block(bl, 4)).readUInt32LE(0);
   const rawCmds = await block(bl, cmdsSize);
   const players = [];
@@ -281,7 +253,6 @@ const parseReplay = async (buf, commandsAsStream = false) => {
   }
   const cmds = parseCommands(rawCmds, players);
 
-  console.log("chk");
   const chkSize = (await block(bl, 4)).readUInt32LE(0);
   const chk = await block(bl, chkSize);
 
