@@ -2,12 +2,15 @@
 
 Downgrade Starcraft Remastered replays to 1.16
 
+### Usage
+`npm install`
+`node src/example.js <replay file>` will write converted replay to out.116.rep
+
 ### Features
 - Parses both 1.16 and SCR replays
-- Can convert from SCR to 1.16 to be used in Starcraft 1.16
+- Downgrades from SCR to 1.16 to be used in Starcraft 1.16
 
-### Currently working
-- Parse 1.16 and SCR
+### What happens with a downgrade?
 - Replay: 
   - Changes replay version to Broodwar
   - Omits SCR sections
