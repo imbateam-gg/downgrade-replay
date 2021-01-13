@@ -4,6 +4,7 @@ Downgrade Starcraft Remastered replays to 1.16
 
 ### Usage
 `npm install`
+
 `node src/example.js <replay file>` will write converted replay to out.116.rep
 
 ### Features
